@@ -3,25 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, {useState} from 'react'
 import logo from '@/public/images/logo.svg'
-import api from "@/lib/api";
-import {cookieValidation} from "@/lib/cookieValidation";
 export default function Login() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        try {
-            api.post("/auth/login", {
-                email: email,
-                password: password,
-            }).then(response =>cookieValidation(response.data.data))
-        } catch (error) {
-            console.log(error)
-        }
-
-
-    }
 
     const [pasStatus, setPassStatus] = useState("false");
     return (
@@ -34,7 +18,7 @@ export default function Login() {
                         <Image src={logo} alt='Logo' height={70} width={70} className='mx-auto'/>
                         <h1 className='text-center font-semibold text-2xl'>Login</h1>
                     </div>
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className='flex flex-col gap-y-7'>
                             <div className='flex items-center border-b'>
                                 <input type="email" onChange={event => setEmail(event.target.value)}
